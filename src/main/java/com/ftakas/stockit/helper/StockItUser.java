@@ -14,15 +14,23 @@
  * limitations under the License.
  */
 
-package com.ftakas.stockit.demo;
+package com.ftakas.stockit.helper;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.ftakas.stockit.domain.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
-@SpringBootApplication
-public class StockitApplication {
+import java.util.List;
 
-	public static void main(String[] args) {
-		SpringApplication.run(StockitApplication.class, args);
-	}
+public class StockItUser extends User {
+    private UserDetails userDetails;
+
+    public StockItUser(UserDetails userDetails, List<GrantedAuthority> authorities) {
+        super(userDetails.getUsername(), userDetails.getPassword(), authorities);
+        this.userDetails = userDetails;
+    }
+
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
 }
